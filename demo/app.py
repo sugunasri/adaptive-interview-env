@@ -28,7 +28,7 @@ def _init():
         from adaptive_interview_env.scorer import Scorer
         from adaptive_interview_env.env import AdaptiveInterviewEnv
         from adaptive_interview_env.reward import RewardFunction
-        from adaptive_interview_env.models import RewardWeights
+        from adaptive_interview_env.models import RewardWeights, CalibrationRef
         from adaptive_interview_env.question_generator import QuestionBank, generate_question
 
         # Load scorer
@@ -39,17 +39,32 @@ def _init():
         _scorer = Scorer(model_name_or_path=model_path)
 
         # Build env (no student — human plays student role)
-        qb_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            "adaptive_interview_env", "data", "question_bank.json",
-        )
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        qb_path = os.path.join(repo_root, "adaptive_interview_env", "data", "question_bank.json")
         fallback_bank = QuestionBank.from_json(qb_path) if os.path.exists(qb_path) else None
 
         def question_gen_fn(**kwargs):
             return generate_question(fallback_bank=fallback_bank, **kwargs)
 
+        # Load calibration refs so calibration_score can be non-zero in the demo
+        cal_path = os.path.join(repo_root, "adaptive_interview_env", "data", "calibration_refs.json")
+        calibration_refs = []
+        if os.path.exists(cal_path):
+            try:
+                with open(cal_path) as f:
+                    raw = json.load(f)
+                for item in raw:
+                    calibration_refs.append(CalibrationRef(
+                        question=item.get("question", ""),
+                        answer=item.get("answer", ""),
+                        ground_truth_scores=item.get("ground_truth_scores", {}),
+                    ))
+                logger.info(f"Loaded {len(calibration_refs)} calibration refs for reward.")
+            except Exception as e:
+                logger.warning(f"Failed to load calibration refs: {e}")
+
         weights = RewardWeights(calibration=0.5, improvement=0.3, consistency=0.2)
-        reward_fn = RewardFunction(weights=weights, calibration_refs=[])
+        reward_fn = RewardFunction(weights=weights, calibration_refs=calibration_refs)
 
         _env = AdaptiveInterviewEnv(
             question_generator=question_gen_fn,
@@ -346,6 +361,19 @@ def submit_answer(answer: str, state: dict):
     # Scorer evaluates
     action = _scorer.score(obs) if _scorer else {d: 0.5 for d in ["correctness", "edge_case_coverage", "complexity_analysis", "tradeoff_reasoning", "communication_clarity"]}
     action["_student_answer"] = answer
+
+    # If the scorer returned all-0.5s with an empty rationale, the model most
+    # likely produced malformed JSON and Scorer._parse_output silently fell back.
+    # Make this visible instead of showing a table of zeros with no explanation.
+    all_half = all(
+        isinstance(action.get(d), (int, float)) and abs(action[d] - 0.5) < 1e-6
+        for d in ["correctness", "edge_case_coverage", "complexity_analysis", "tradeoff_reasoning", "communication_clarity"]
+    )
+    if all_half and not action.get("rationale"):
+        action["rationale"] = (
+            "Scorer returned default scores (model output could not be parsed as JSON). "
+            "This usually means the model needs more fine-tuning or the prompt needs stricter formatting."
+        )
 
     # Env step
     new_obs, reward, terminated, truncated, info = _env.step(action)
