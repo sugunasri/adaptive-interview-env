@@ -8,40 +8,25 @@ from .models import Observation
 logger = logging.getLogger(__name__)
 
 SCORER_PROMPT_TEMPLATE = """\
-You are a strict senior engineer conducting a CS technical interview.
-You are NOT a helpful assistant. Your job is to evaluate the student's
-answer honestly and critically, the way a real interviewer would.
+You are a strict senior engineer conducting a technical interview.
+Grade the student's answer honestly. Do not be encouraging.
 
-Grading rules (apply these strictly):
-- A blank, off-topic, evasive, or one-word answer scores 0.0 to 0.1 on every dimension.
-- An answer that asserts something factually wrong scores 0.0 to 0.2 on correctness,
-  regardless of how confidently it is phrased.
-- An answer that restates the question without engaging scores at most 0.2.
-- An answer that names the right concept but gives no detail, complexity, edge cases,
-  or tradeoffs scores around 0.3-0.5.
-- An answer that is correct and explains the key idea scores 0.5-0.7.
-- An answer that is correct, covers edge cases, discusses complexity AND tradeoffs,
-  and communicates clearly scores 0.8+.
-- Only score 0.9+ if the answer would impress a staff engineer.
-
-Do NOT be encouraging. Do NOT round up. Do NOT give partial credit for effort.
-If the answer is bad, say so plainly in the rationale. Reference the specific
-weakness (e.g., "does not mention complexity", "claims sorted array required but
-linear search works on unsorted").
+Scoring guide (apply strictly):
+- Blank, off-topic, or one-word answer: 0.0
+- Factually wrong: 0.1 on correctness
+- Names the right idea but no detail: 0.3
+- Correct with key explanation: 0.5-0.7
+- Correct + edge cases + complexity + tradeoffs: 0.8+
+- Staff-engineer-impressive: 0.9+
 
 Domain: {domain}
 Question: {question}
 Student Answer: {student_answer}
 Current Skill Profile: {skill_profile_json}
-Student Ability Level: {ability_level}
-Current Difficulty: {difficulty}
-Previous Rationales: {previous_rationales}
+Difficulty: {difficulty}
 
-Respond ONLY with a valid JSON object (no markdown, no extra text):
-{{"correctness": <0.0-1.0>, "edge_case_coverage": <0.0-1.0>, \
-"complexity_analysis": <0.0-1.0>, "tradeoff_reasoning": <0.0-1.0>, \
-"communication_clarity": <0.0-1.0>, \
-"rationale": "<one honest sentence. Name the specific gap if the answer is weak.>"}}
+Respond with a single JSON object and NOTHING else (no prose before or after):
+{{"correctness": <0.0-1.0>, "edge_case_coverage": <0.0-1.0>, "complexity_analysis": <0.0-1.0>, "tradeoff_reasoning": <0.0-1.0>, "communication_clarity": <0.0-1.0>, "rationale": "<one honest sentence naming the specific gap or strength>"}}
 """
 
 FALLBACK_ACTION = {dim: 0.5 for dim in SKILL_DIMENSIONS}
@@ -140,16 +125,46 @@ class Scorer:
     def _parse_output(self, raw: str) -> dict:
         """Extract JSON from raw LLM output; return fallback on failure."""
         try:
-            # strip markdown fences
             text = raw.strip()
+            # strip markdown fences
             for fence in ["```json", "```"]:
                 text = text.replace(fence, "")
             text = text.strip()
-            # find first { ... }
+
+            # Scan forward for the first complete balanced { ... } block.
+            # This handles the common small-LLM failure mode of emitting
+            # valid JSON followed by explanatory prose or a second object.
             start = text.find("{")
-            end = text.rfind("}") + 1
-            if start == -1 or end == 0:
+            if start == -1:
                 raise ValueError("No JSON object found in output")
+
+            depth = 0
+            in_string = False
+            escape = False
+            end = -1
+            for i in range(start, len(text)):
+                ch = text[i]
+                if in_string:
+                    if escape:
+                        escape = False
+                    elif ch == "\\":
+                        escape = True
+                    elif ch == '"':
+                        in_string = False
+                    continue
+                if ch == '"':
+                    in_string = True
+                elif ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        end = i + 1
+                        break
+
+            if end == -1:
+                raise ValueError("Unbalanced braces in output")
+
             action = json.loads(text[start:end])
             for dim in SKILL_DIMENSIONS:
                 if dim not in action:
