@@ -400,8 +400,17 @@ def submit_answer(answer: str, state: dict):
     )
     reward_table = _format_reward_table(state["reward_history"])
 
-    rationale = action.get("rationale", "")
-    rationale_text = f"**Scorer rationale:** {rationale}" if rationale else ""
+    rationale = action.get("rationale", "").strip()
+    if rationale:
+        rationale_text = (
+            f"<div style='background:#f8fafc;border-left:3px solid #2563eb;"
+            f"padding:10px 14px;margin-top:8px;color:#0f172a;font-size:13px;"
+            f"line-height:1.55;border-radius:2px'>"
+            f"<b style='color:#334155'>Interviewer feedback</b><br>{rationale}"
+            f"</div>"
+        )
+    else:
+        rationale_text = ""
 
     if done:
         next_q = "Session complete. Click 'Start New Session' to try again."
