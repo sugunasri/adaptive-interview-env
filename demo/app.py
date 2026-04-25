@@ -68,27 +68,163 @@ _init()
 # Session state helpers
 # ---------------------------------------------------------------------------
 
-def _make_radar_chart(skill_profile_dict: dict):
+# ---------------------------------------------------------------------------
+# Skill radar chart
+# ---------------------------------------------------------------------------
+
+# Human-readable labels for skill dimensions (shown on radar axes)
+DIM_LABELS = {
+    "correctness": "Correctness",
+    "edge_case_coverage": "Edge Cases",
+    "complexity_analysis": "Complexity",
+    "tradeoff_reasoning": "Tradeoffs",
+    "communication_clarity": "Clarity",
+}
+
+# One-line tooltips for each dimension
+DIM_TOOLTIPS = {
+    "correctness": "Is the answer factually right?",
+    "edge_case_coverage": "Did they handle tricky inputs and boundary cases?",
+    "complexity_analysis": "Did they reason about time/space complexity?",
+    "tradeoff_reasoning": "Did they weigh design tradeoffs?",
+    "communication_clarity": "Is the explanation clear and well-structured?",
+}
+
+
+def _score_color(score: float) -> str:
+    """Green >= 0.7, amber 0.4-0.7, red < 0.4."""
+    if score >= 0.7:
+        return "#16a34a"  # green-600
+    if score >= 0.4:
+        return "#d97706"  # amber-600
+    return "#dc2626"      # red-600
+
+
+def _make_radar_chart(
+    skill_profile_dict: dict,
+    baseline_dict: dict = None,
+    target_dimension: str = None,
+):
+    """Render an easy-to-read skill radar.
+
+    - 0-100 scale for at-a-glance reading
+    - Baseline (dotted) shows where the session started; solid shows current
+    - Per-vertex score labels color-coded by level (green/amber/red)
+    - Target dimension (what the Scorer is probing next) gets a highlight ring
+    """
     try:
         import plotly.graph_objects as go
-        dims = list(skill_profile_dict.keys())
-        vals = [skill_profile_dict[d] for d in dims]
-        vals_closed = vals + [vals[0]]
-        dims_closed = dims + [dims[0]]
-        fig = go.Figure(go.Scatterpolar(
-            r=vals_closed,
-            theta=dims_closed,
+
+        # Stable dimension order
+        dims = list(DIM_LABELS.keys())
+        labels = [DIM_LABELS[d] for d in dims]
+        current = [skill_profile_dict.get(d, 0.5) * 100 for d in dims]
+        baseline = (
+            [baseline_dict.get(d, 0.5) * 100 for d in dims]
+            if baseline_dict else None
+        )
+
+        # Close the polygons
+        labels_closed = labels + [labels[0]]
+        current_closed = current + [current[0]]
+
+        fig = go.Figure()
+
+        # Baseline trace (start of session)
+        if baseline is not None:
+            baseline_closed = baseline + [baseline[0]]
+            fig.add_trace(go.Scatterpolar(
+                r=baseline_closed,
+                theta=labels_closed,
+                mode="lines",
+                line=dict(color="#94a3b8", width=1.5, dash="dot"),
+                name="Start of session",
+                hovertemplate="<b>%{theta}</b><br>start: %{r:.0f}<extra></extra>",
+            ))
+
+        # Current trace (filled area)
+        fig.add_trace(go.Scatterpolar(
+            r=current_closed,
+            theta=labels_closed,
+            mode="lines",
+            line=dict(color="#2563eb", width=2.5),
             fill="toself",
-            line_color="steelblue",
+            fillcolor="rgba(37, 99, 235, 0.18)",
+            name="Current skill",
+            hovertemplate="<b>%{theta}</b><br>current: %{r:.0f}<extra></extra>",
         ))
-        fig.update_layout(
-            polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+
+        # Per-vertex colored score markers + text labels
+        marker_colors = [_score_color(v / 100) for v in current]
+        fig.add_trace(go.Scatterpolar(
+            r=current,
+            theta=labels,
+            mode="markers+text",
+            marker=dict(size=12, color=marker_colors, line=dict(color="white", width=2)),
+            text=[f"{v:.0f}" for v in current],
+            textposition="top center",
+            textfont=dict(size=12, color="#0f172a"),
             showlegend=False,
-            margin=dict(l=40, r=40, t=40, b=40),
-            height=350,
+            hoverinfo="skip",
+        ))
+
+        # Highlight the dimension the Scorer is currently targeting
+        if target_dimension and target_dimension in DIM_LABELS:
+            idx = dims.index(target_dimension)
+            fig.add_trace(go.Scatterpolar(
+                r=[current[idx]],
+                theta=[labels[idx]],
+                mode="markers",
+                marker=dict(
+                    size=22, color="rgba(0,0,0,0)",
+                    line=dict(color="#f59e0b", width=3),
+                ),
+                name=f"Next focus: {DIM_LABELS[target_dimension]}",
+                hovertemplate=f"<b>Next focus</b><br>{DIM_LABELS[target_dimension]}<extra></extra>",
+            ))
+
+        # Mean score annotation in the center
+        mean_score = sum(current) / len(current)
+        mean_color = _score_color(mean_score / 100)
+        fig.add_annotation(
+            text=f"<b style='font-size:22px'>{mean_score:.0f}</b><br>"
+                 f"<span style='font-size:11px;color:#64748b'>overall</span>",
+            x=0.5, y=0.5, xref="paper", yref="paper",
+            showarrow=False,
+            font=dict(color=mean_color, size=14),
+            align="center",
+        )
+
+        fig.update_layout(
+            polar=dict(
+                bgcolor="#f8fafc",
+                radialaxis=dict(
+                    visible=True, range=[0, 100],
+                    tickvals=[20, 40, 60, 80, 100],
+                    ticktext=["20", "40", "60", "80", "100"],
+                    tickfont=dict(size=10, color="#64748b"),
+                    gridcolor="#e2e8f0",
+                    linecolor="#e2e8f0",
+                ),
+                angularaxis=dict(
+                    tickfont=dict(size=13, color="#0f172a"),
+                    gridcolor="#e2e8f0",
+                    linecolor="#cbd5e1",
+                ),
+            ),
+            showlegend=True,
+            legend=dict(
+                orientation="h", yanchor="bottom", y=-0.15,
+                xanchor="center", x=0.5,
+                font=dict(size=11),
+            ),
+            margin=dict(l=60, r=60, t=30, b=60),
+            height=420,
+            paper_bgcolor="white",
         )
         return fig
-    except Exception:
+    except Exception as e:
+        logger.warning(f"radar render failed: {e}")
         return None
 
 
@@ -119,13 +255,15 @@ def start_session(state):
             None, [], [], "Error loading model."
         )
     obs, info = _env.reset()
+    baseline = obs.skill_profile.to_dict()
     state = {
         "obs": obs,
         "reward_history": [],
         "step": 0,
         "done": False,
+        "baseline": baseline,
     }
-    radar = _make_radar_chart(obs.skill_profile.to_dict())
+    radar = _make_radar_chart(baseline, baseline_dict=baseline, target_dimension=None)
     return (
         gr.update(value=obs.question, interactive=False),
         gr.update(value="", interactive=True, placeholder="Type your answer here..."),
@@ -169,7 +307,11 @@ def submit_answer(answer: str, state: dict):
     state["step"] += 1
     state["done"] = done
 
-    radar = _make_radar_chart(new_obs.skill_profile.to_dict())
+    radar = _make_radar_chart(
+        new_obs.skill_profile.to_dict(),
+        baseline_dict=state.get("baseline"),
+        target_dimension=info.get("target_dimension"),
+    )
     reward_table = _format_reward_table(state["reward_history"])
 
     rationale = action.get("rationale", "")
@@ -233,7 +375,17 @@ def build_demo():
 
             with gr.Column(scale=1):
                 gr.Markdown("### Skill Profile")
-                radar_plot = gr.Plot(label="Skill Radar")
+                radar_plot = gr.Plot(label="")
+                gr.Markdown(
+                    "<div style='font-size:12px;color:#475569;line-height:1.6'>"
+                    "<b>How to read this:</b> each axis is a skill the Scorer evaluates (0-100). "
+                    "<span style='color:#16a34a'>●</span> strong (≥70) "
+                    "<span style='color:#d97706'>●</span> developing (40-69) "
+                    "<span style='color:#dc2626'>●</span> weak (&lt;40). "
+                    "Dotted outline = where you started. "
+                    "Amber ring = dimension the Scorer is probing next."
+                    "</div>"
+                )
 
         gr.Markdown("### Reward Breakdown")
         reward_table = gr.Dataframe(
