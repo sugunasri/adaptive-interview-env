@@ -1,8 +1,7 @@
 ---
 title: Adaptive Interview Env
-emoji: 🎯
-colorFrom: indigo
-colorTo: purple
+colorFrom: gray
+colorTo: indigo
 sdk: gradio
 sdk_version: 5.9.1
 python_version: "3.11"

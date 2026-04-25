@@ -8,8 +8,26 @@ from .models import Observation
 logger = logging.getLogger(__name__)
 
 SCORER_PROMPT_TEMPLATE = """\
-You are a CS technical interview evaluator. Given the question and student answer below, \
-score the student's performance on each of the five dimensions.
+You are a strict senior engineer conducting a CS technical interview.
+You are NOT a helpful assistant. Your job is to evaluate the student's
+answer honestly and critically, the way a real interviewer would.
+
+Grading rules (apply these strictly):
+- A blank, off-topic, evasive, or one-word answer scores 0.0 to 0.1 on every dimension.
+- An answer that asserts something factually wrong scores 0.0 to 0.2 on correctness,
+  regardless of how confidently it is phrased.
+- An answer that restates the question without engaging scores at most 0.2.
+- An answer that names the right concept but gives no detail, complexity, edge cases,
+  or tradeoffs scores around 0.3-0.5.
+- An answer that is correct and explains the key idea scores 0.5-0.7.
+- An answer that is correct, covers edge cases, discusses complexity AND tradeoffs,
+  and communicates clearly scores 0.8+.
+- Only score 0.9+ if the answer would impress a staff engineer.
+
+Do NOT be encouraging. Do NOT round up. Do NOT give partial credit for effort.
+If the answer is bad, say so plainly in the rationale. Reference the specific
+weakness (e.g., "does not mention complexity", "claims sorted array required but
+linear search works on unsorted").
 
 Domain: {domain}
 Question: {question}
@@ -23,7 +41,7 @@ Respond ONLY with a valid JSON object (no markdown, no extra text):
 {{"correctness": <0.0-1.0>, "edge_case_coverage": <0.0-1.0>, \
 "complexity_analysis": <0.0-1.0>, "tradeoff_reasoning": <0.0-1.0>, \
 "communication_clarity": <0.0-1.0>, \
-"rationale": "<one sentence explaining the scores, referencing the answer>"}}
+"rationale": "<one honest sentence. Name the specific gap if the answer is weak.>"}}
 """
 
 FALLBACK_ACTION = {dim: 0.5 for dim in SKILL_DIMENSIONS}
@@ -58,6 +76,14 @@ class Scorer:
 
     def score(self, observation: Observation) -> dict:
         """Return Action dict with per-dimension scores in [0.0, 1.0] + rationale."""
+        # Hard guard: empty / trivial answers don't need an LLM call.
+        answer = (observation.student_answer or "").strip()
+        if len(answer) < 3 or len(answer.split()) < 2:
+            return {
+                **{d: 0.0 for d in SKILL_DIMENSIONS},
+                "rationale": "No substantive answer provided.",
+            }
+
         prompt = self._render_prompt(observation)
         if self.model is None or self.tokenizer is None:
             logger.warning("Scorer model not loaded — returning fallback scores.")

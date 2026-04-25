@@ -104,6 +104,7 @@ def _make_radar_chart(
     skill_profile_dict: dict,
     baseline_dict: dict = None,
     target_dimension: str = None,
+    pristine: bool = False,
 ):
     """Render an easy-to-read skill radar.
 
@@ -111,6 +112,8 @@ def _make_radar_chart(
     - Baseline (dotted) shows where the session started; solid shows current
     - Per-vertex score labels color-coded by level (green/amber/red)
     - Target dimension (what the Scorer is probing next) gets a highlight ring
+    - pristine=True renders an unscored placeholder before step 1 so we don't
+      mislead the viewer with the 0.5 prior as if it were a measurement
     """
     try:
         import plotly.graph_objects as go
@@ -118,6 +121,61 @@ def _make_radar_chart(
         # Stable dimension order
         dims = list(DIM_LABELS.keys())
         labels = [DIM_LABELS[d] for d in dims]
+
+        if pristine:
+            fig = go.Figure()
+            fig.add_trace(go.Scatterpolar(
+                r=[50] * (len(dims) + 1),
+                theta=labels + [labels[0]],
+                mode="lines",
+                line=dict(color="#cbd5e1", width=1, dash="dot"),
+                name="Awaiting first answer",
+                hoverinfo="skip",
+                showlegend=True,
+            ))
+            fig.add_trace(go.Scatterpolar(
+                r=[0] * len(dims),
+                theta=labels,
+                mode="markers+text",
+                marker=dict(size=10, color="#cbd5e1", line=dict(color="white", width=2)),
+                text=["—"] * len(dims),
+                textposition="top center",
+                textfont=dict(size=13, color="#94a3b8"),
+                showlegend=False,
+                hoverinfo="skip",
+            ))
+            fig.add_annotation(
+                text="<span style='font-size:13px;color:#94a3b8'>"
+                     "Submit an answer<br>to begin scoring</span>",
+                x=0.5, y=0.5, xref="paper", yref="paper",
+                showarrow=False, align="center",
+            )
+            fig.update_layout(
+                polar=dict(
+                    bgcolor="#f8fafc",
+                    radialaxis=dict(
+                        visible=True, range=[0, 100],
+                        tickvals=[20, 40, 60, 80, 100],
+                        ticktext=["20", "40", "60", "80", "100"],
+                        tickfont=dict(size=10, color="#94a3b8"),
+                        gridcolor="#e2e8f0", linecolor="#e2e8f0",
+                    ),
+                    angularaxis=dict(
+                        tickfont=dict(size=13, color="#0f172a"),
+                        gridcolor="#e2e8f0", linecolor="#cbd5e1",
+                    ),
+                ),
+                showlegend=True,
+                legend=dict(
+                    orientation="h", yanchor="bottom", y=-0.15,
+                    xanchor="center", x=0.5, font=dict(size=11),
+                ),
+                margin=dict(l=60, r=60, t=30, b=60),
+                height=420,
+                paper_bgcolor="white",
+            )
+            return fig
+
         current = [skill_profile_dict.get(d, 0.5) * 100 for d in dims]
         baseline = (
             [baseline_dict.get(d, 0.5) * 100 for d in dims]
@@ -250,7 +308,7 @@ def _format_reward_table(reward_history: list) -> list:
 def start_session(state):
     if _load_error:
         return (
-            gr.update(value=f"⚠️ Load error: {_load_error}", interactive=False),
+            gr.update(value=f"Load error: {_load_error}", interactive=False),
             gr.update(interactive=False),
             None, [], [], "Error loading model."
         )
@@ -263,7 +321,7 @@ def start_session(state):
         "done": False,
         "baseline": baseline,
     }
-    radar = _make_radar_chart(baseline, baseline_dict=baseline, target_dimension=None)
+    radar = _make_radar_chart(baseline, baseline_dict=None, target_dimension=None, pristine=True)
     return (
         gr.update(value=obs.question, interactive=False),
         gr.update(value="", interactive=True, placeholder="Type your answer here..."),
@@ -318,7 +376,7 @@ def submit_answer(answer: str, state: dict):
     rationale_text = f"**Scorer rationale:** {rationale}" if rationale else ""
 
     if done:
-        next_q = "✅ Session complete! Click 'Start New Session' to try again."
+        next_q = "Session complete. Click 'Start New Session' to try again."
         answer_box = gr.update(value="", interactive=False)
     else:
         next_q = new_obs.question
@@ -347,7 +405,11 @@ def submit_answer(answer: str, state: dict):
 
 def build_demo():
     with gr.Blocks(title="AdaptiveInterviewEnv Demo", theme=gr.themes.Soft()) as demo:
-        gr.Markdown("# 🎯 AdaptiveInterviewEnv\nAn RL environment that trains a **Scorer** to evaluate CS interview answers.")
+        gr.Markdown(
+            "# AdaptiveInterviewEnv\n"
+            "A CS technical interview environment where an RL-trained Scorer "
+            "evaluates your answers across five skill dimensions."
+        )
 
         state = gr.State(None)
 
@@ -367,7 +429,7 @@ def build_demo():
                     interactive=False,
                 )
                 with gr.Row():
-                    start_btn = gr.Button("▶ Start New Session", variant="primary")
+                    start_btn = gr.Button("Start New Session", variant="primary")
                     submit_btn = gr.Button("Submit Answer", variant="secondary")
 
                 status_md = gr.Markdown("")
@@ -378,12 +440,12 @@ def build_demo():
                 radar_plot = gr.Plot(label="")
                 gr.Markdown(
                     "<div style='font-size:12px;color:#475569;line-height:1.6'>"
-                    "<b>How to read this:</b> each axis is a skill the Scorer evaluates (0-100). "
-                    "<span style='color:#16a34a'>●</span> strong (≥70) "
-                    "<span style='color:#d97706'>●</span> developing (40-69) "
-                    "<span style='color:#dc2626'>●</span> weak (&lt;40). "
-                    "Dotted outline = where you started. "
-                    "Amber ring = dimension the Scorer is probing next."
+                    "Each axis is a skill the Scorer evaluates (0 to 100). "
+                    "<span style='color:#16a34a;font-weight:600'>Green</span> = strong (70+), "
+                    "<span style='color:#d97706;font-weight:600'>amber</span> = developing (40–69), "
+                    "<span style='color:#dc2626;font-weight:600'>red</span> = weak (&lt;40). "
+                    "The dotted outline marks where the session started. "
+                    "The amber ring marks the dimension the Scorer will probe next."
                     "</div>"
                 )
 
