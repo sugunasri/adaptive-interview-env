@@ -1,0 +1,25 @@
+# Local-friendly config for CPU smoke training.
+# Uses the smallest practical Qwen and just a few short episodes so the
+# loop completes in minutes on CPU. For serious runs, use config.yaml on GPU.
+scorer_model: "Qwen/Qwen2.5-0.5B-Instruct"
+student_model: "Qwen/Qwen2.5-0.5B-Instruct"
+learning_rate: 1.0e-5
+batch_size: 1
+num_episodes: 3
+ema_decay: 0.8
+output_dir: "outputs/"
+logger: "csv"
+
+reward_weights:
+  calibration: 0.5
+  improvement: 0.3
+  consistency: 0.2
+
+ppo:
+  mini_batch_size: 1
+  ppo_epochs: 1
+  clip_range: 0.2
+
+env:
+  max_steps: 3
+  domain: null

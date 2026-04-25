@@ -1,0 +1,86 @@
+[
+  {
+    "id": "bq_001",
+    "domain": "algorithms",
+    "dimension": "correctness",
+    "difficulty": "medium",
+    "question": "Implement a function to find the longest common subsequence of two strings. What is the time complexity of your solution?"
+  },
+  {
+    "id": "bq_002",
+    "domain": "algorithms",
+    "dimension": "edge_case_coverage",
+    "difficulty": "easy",
+    "question": "Given a binary search tree, write a function to find the kth smallest element. What edge cases should you handle?"
+  },
+  {
+    "id": "bq_003",
+    "domain": "system_design",
+    "dimension": "tradeoff_reasoning",
+    "difficulty": "hard",
+    "question": "Design a URL shortening service like bit.ly. Walk through the key architectural decisions and the tradeoffs you considered."
+  },
+  {
+    "id": "bq_004",
+    "domain": "system_design",
+    "dimension": "complexity_analysis",
+    "difficulty": "medium",
+    "question": "How would you design a rate limiter for an API gateway? Discuss the scalability characteristics of your approach."
+  },
+  {
+    "id": "bq_005",
+    "domain": "databases",
+    "dimension": "correctness",
+    "difficulty": "medium",
+    "question": "Explain the difference between INNER JOIN and LEFT JOIN. Write a query to find all customers who have never placed an order."
+  },
+  {
+    "id": "bq_006",
+    "domain": "databases",
+    "dimension": "tradeoff_reasoning",
+    "difficulty": "hard",
+    "question": "When would you choose a NoSQL database over a relational database? Describe a scenario where each is the better choice."
+  },
+  {
+    "id": "bq_007",
+    "domain": "concurrency",
+    "dimension": "edge_case_coverage",
+    "difficulty": "hard",
+    "question": "Explain the dining philosophers problem. How does your solution avoid deadlock and starvation?"
+  },
+  {
+    "id": "bq_008",
+    "domain": "machine_learning",
+    "dimension": "communication_clarity",
+    "difficulty": "easy",
+    "question": "Explain the difference between overfitting and underfitting. How would you detect and address each in a production model?"
+  },
+  {
+    "id": "bq_009",
+    "domain": "security",
+    "dimension": "correctness",
+    "difficulty": "medium",
+    "question": "What is SQL injection and how do you prevent it? Show an example of a vulnerable query and its secure equivalent."
+  },
+  {
+    "id": "bq_010",
+    "domain": "object_oriented_design",
+    "dimension": "tradeoff_reasoning",
+    "difficulty": "medium",
+    "question": "Design a parking lot system using object-oriented principles. Which design patterns did you apply and why?"
+  },
+  {
+    "id": "bq_011",
+    "domain": "distributed_systems",
+    "dimension": "complexity_analysis",
+    "difficulty": "hard",
+    "question": "Explain the CAP theorem. Given a distributed key-value store, how do you choose between consistency and availability during a network partition?"
+  },
+  {
+    "id": "bq_012",
+    "domain": "algorithms",
+    "dimension": "communication_clarity",
+    "difficulty": "easy",
+    "question": "Explain how quicksort works to someone unfamiliar with sorting algorithms. What is its average and worst-case time complexity?"
+  }
+]

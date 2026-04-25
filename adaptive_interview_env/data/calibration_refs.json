@@ -1,0 +1,1302 @@
+[
+  {
+    "question": "Describe how you would respond to a reported security vulnerability.",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "security",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.859,
+      "edge_case_coverage": 0.873,
+      "complexity_analysis": 0.813,
+      "tradeoff_reasoning": 0.824,
+      "communication_clarity": 0.87
+    }
+  },
+  {
+    "question": "What is SQL injection and how do you prevent it?",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.542,
+      "edge_case_coverage": 0.5,
+      "complexity_analysis": 0.579,
+      "tradeoff_reasoning": 0.647,
+      "communication_clarity": 0.698
+    }
+  },
+  {
+    "question": "Analyze the message complexity of the Paxos consensus algorithm.",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.746,
+      "edge_case_coverage": 0.52,
+      "complexity_analysis": 0.46,
+      "tradeoff_reasoning": 0.408,
+      "communication_clarity": 0.519
+    }
+  },
+  {
+    "question": "Explain SQL injection to a non-technical product manager.",
+    "answer": "You need to handle errors.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.172,
+      "edge_case_coverage": 0.328,
+      "complexity_analysis": 0.222,
+      "tradeoff_reasoning": 0.183,
+      "communication_clarity": 0.407
+    }
+  },
+  {
+    "question": "What happens to gradient descent when the learning rate is too high or too low?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "machine_learning",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.925,
+      "edge_case_coverage": 0.918,
+      "complexity_analysis": 0.847,
+      "tradeoff_reasoning": 0.883,
+      "communication_clarity": 0.835
+    }
+  },
+  {
+    "question": "Design a key-value store that supports get, put, and delete operations.",
+    "answer": "For a URL shortener I'd use a hash function (e.g. MD5 first 6 chars) to generate short codes, store mappings in a key-value store like Redis for fast reads, and a relational DB for persistence. Handle collisions by appending a counter. Scale reads with a CDN. Edge cases: same URL submitted twice (return existing code), expired URLs, malicious URLs.",
+    "domain": "system_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.962,
+      "edge_case_coverage": 0.823,
+      "complexity_analysis": 0.855,
+      "tradeoff_reasoning": 0.912,
+      "communication_clarity": 0.94
+    }
+  },
+  {
+    "question": "What is the space complexity of a recursive Fibonacci implementation?",
+    "answer": "Merge sort divides the array in half recursively until single elements, then merges sorted halves. Time O(n log n) in all cases, space O(n) for the merge buffer. It's stable and predictable unlike quicksort. Tradeoff: uses more memory than in-place sorts.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.963,
+      "edge_case_coverage": 0.844,
+      "complexity_analysis": 0.934,
+      "tradeoff_reasoning": 0.869,
+      "communication_clarity": 0.899
+    }
+  },
+  {
+    "question": "How does your Observer pattern handle a subscriber that throws an exception?",
+    "answer": "You need to handle errors.",
+    "domain": "object_oriented_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.383,
+      "edge_case_coverage": 0.338,
+      "complexity_analysis": 0.378,
+      "tradeoff_reasoning": 0.104,
+      "communication_clarity": 0.283
+    }
+  },
+  {
+    "question": "What are the tradeoffs between precision and recall in a classification task?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "machine_learning",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.651,
+      "edge_case_coverage": 0.525,
+      "complexity_analysis": 0.715,
+      "tradeoff_reasoning": 0.512,
+      "communication_clarity": 0.53
+    }
+  },
+  {
+    "question": "Implement a simple event bus using the publish-subscribe pattern.",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.962,
+      "edge_case_coverage": 0.947,
+      "complexity_analysis": 0.943,
+      "tradeoff_reasoning": 0.914,
+      "communication_clarity": 0.866
+    }
+  },
+  {
+    "question": "What happens to your distributed database during a network partition?",
+    "answer": "Rate limiting can be implemented with a token bucket algorithm. Each user gets a bucket of N tokens refilled at rate R. Each request consumes one token. Store buckets in Redis with TTL. Tradeoffs: token bucket allows bursts vs leaky bucket which smooths traffic. Distributed rate limiting needs atomic Redis operations to avoid race conditions.",
+    "domain": "system_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.896,
+      "edge_case_coverage": 0.869,
+      "complexity_analysis": 0.946,
+      "tradeoff_reasoning": 0.88,
+      "communication_clarity": 0.959
+    }
+  },
+  {
+    "question": "Explain the difference between optimistic and pessimistic locking.",
+    "answer": "It's O(n) I think.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.16,
+      "edge_case_coverage": 0.083,
+      "complexity_analysis": 0.394,
+      "tradeoff_reasoning": 0.13,
+      "communication_clarity": 0.172
+    }
+  },
+  {
+    "question": "Explain the SOLID principles using a concrete example from your design.",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.879,
+      "edge_case_coverage": 0.839,
+      "complexity_analysis": 0.833,
+      "tradeoff_reasoning": 0.889,
+      "communication_clarity": 0.943
+    }
+  },
+  {
+    "question": "What happens when a session token is stolen via XSS?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.649,
+      "edge_case_coverage": 0.58,
+      "complexity_analysis": 0.642,
+      "tradeoff_reasoning": 0.639,
+      "communication_clarity": 0.746
+    }
+  },
+  {
+    "question": "When would you use a CDN and what are the downsides?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "system_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.638,
+      "edge_case_coverage": 0.613,
+      "complexity_analysis": 0.659,
+      "tradeoff_reasoning": 0.663,
+      "communication_clarity": 0.5
+    }
+  },
+  {
+    "question": "Write a function to check if a binary tree is a valid BST.",
+    "answer": "Merge sort divides the array in half recursively until single elements, then merges sorted halves. Time O(n log n) in all cases, space O(n) for the merge buffer. It's stable and predictable unlike quicksort. Tradeoff: uses more memory than in-place sorts.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.853,
+      "edge_case_coverage": 0.858,
+      "complexity_analysis": 0.934,
+      "tradeoff_reasoning": 0.825,
+      "communication_clarity": 0.936
+    }
+  },
+  {
+    "question": "Explain the concept of thread safety in plain language with an example.",
+    "answer": "A race condition occurs when two threads access shared state concurrently and the outcome depends on scheduling. Example: two threads both read balance=100, both add 50, both write 150 \u2014 final balance should be 200. Fix with a mutex. Deadlock requires: mutual exclusion, hold-and-wait, no preemption, circular wait. Break any one condition to prevent it.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.977,
+      "edge_case_coverage": 0.921,
+      "complexity_analysis": 0.877,
+      "tradeoff_reasoning": 0.829,
+      "communication_clarity": 0.875
+    }
+  },
+  {
+    "question": "What happens to your model when the test distribution differs from training?",
+    "answer": "You need to handle errors.",
+    "domain": "machine_learning",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.178,
+      "edge_case_coverage": 0.39,
+      "complexity_analysis": 0.417,
+      "tradeoff_reasoning": 0.098,
+      "communication_clarity": 0.383
+    }
+  },
+  {
+    "question": "How does your system handle duplicate messages in an at-least-once delivery model?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.633,
+      "edge_case_coverage": 0.613,
+      "complexity_analysis": 0.592,
+      "tradeoff_reasoning": 0.649,
+      "communication_clarity": 0.7
+    }
+  },
+  {
+    "question": "How does adding an index affect write performance?",
+    "answer": "You can use a database for that.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.311,
+      "edge_case_coverage": 0.394,
+      "complexity_analysis": 0.197,
+      "tradeoff_reasoning": 0.365,
+      "communication_clarity": 0.347
+    }
+  },
+  {
+    "question": "What is the time and space complexity of your quicksort implementation?",
+    "answer": "Binary search works by repeatedly halving the search space. We compare the target to the middle element; if equal we return, if less we search the left half, otherwise the right half. Time complexity is O(log n), space O(1) iteratively. Edge cases: empty array returns -1, single element, target smaller than all elements, target larger than all elements.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.872,
+      "edge_case_coverage": 0.818,
+      "complexity_analysis": 0.872,
+      "tradeoff_reasoning": 0.914,
+      "communication_clarity": 0.853
+    }
+  },
+  {
+    "question": "What happens to gradient descent when the learning rate is too high or too low?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "machine_learning",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.702,
+      "edge_case_coverage": 0.698,
+      "complexity_analysis": 0.678,
+      "tradeoff_reasoning": 0.478,
+      "communication_clarity": 0.601
+    }
+  },
+  {
+    "question": "What happens to your parking lot design when all spots are full?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.858,
+      "edge_case_coverage": 0.943,
+      "complexity_analysis": 0.937,
+      "tradeoff_reasoning": 0.903,
+      "communication_clarity": 0.911
+    }
+  },
+  {
+    "question": "What is the overhead of TLS handshake on API latency?",
+    "answer": "I think it works by checking each element.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.111,
+      "edge_case_coverage": 0.124,
+      "complexity_analysis": 0.137,
+      "tradeoff_reasoning": 0.134,
+      "communication_clarity": 0.31
+    }
+  },
+  {
+    "question": "What is the latency impact of adding a caching layer to your design?",
+    "answer": "Just use a hash map.",
+    "domain": "system_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.101,
+      "edge_case_coverage": 0.302,
+      "complexity_analysis": 0.091,
+      "tradeoff_reasoning": 0.308,
+      "communication_clarity": 0.427
+    }
+  },
+  {
+    "question": "What edge cases exist in your thread pool implementation?",
+    "answer": "A mutex allows only one thread at a time. A semaphore allows N threads. Use mutex for mutual exclusion of a critical section; use semaphore for resource counting (e.g. connection pool of size 10). Lock-free structures use CAS operations to avoid blocking entirely \u2014 higher throughput under contention but harder to implement correctly.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.86,
+      "edge_case_coverage": 0.946,
+      "complexity_analysis": 0.878,
+      "tradeoff_reasoning": 0.929,
+      "communication_clarity": 0.866
+    }
+  },
+  {
+    "question": "Explain how the Raft consensus algorithm achieves leader election.",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "distributed_systems",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.952,
+      "edge_case_coverage": 0.9,
+      "complexity_analysis": 0.813,
+      "tradeoff_reasoning": 0.846,
+      "communication_clarity": 0.843
+    }
+  },
+  {
+    "question": "What are the tradeoffs between using an abstract class vs an interface?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.968,
+      "edge_case_coverage": 0.819,
+      "complexity_analysis": 0.837,
+      "tradeoff_reasoning": 0.887,
+      "communication_clarity": 0.843
+    }
+  },
+  {
+    "question": "What is the bias-variance tradeoff?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "machine_learning",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.86,
+      "edge_case_coverage": 0.891,
+      "complexity_analysis": 0.81,
+      "tradeoff_reasoning": 0.907,
+      "communication_clarity": 0.874
+    }
+  },
+  {
+    "question": "What is the latency impact of requiring quorum reads in your system?",
+    "answer": "I think it works by checking each element.",
+    "domain": "distributed_systems",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.3,
+      "edge_case_coverage": 0.183,
+      "complexity_analysis": 0.151,
+      "tradeoff_reasoning": 0.193,
+      "communication_clarity": 0.142
+    }
+  },
+  {
+    "question": "When would you use a CDN and what are the downsides?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "system_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.602,
+      "edge_case_coverage": 0.598,
+      "complexity_analysis": 0.601,
+      "tradeoff_reasoning": 0.494,
+      "communication_clarity": 0.606
+    }
+  },
+  {
+    "question": "What is the amortized time complexity of inserting into a dynamic array?",
+    "answer": "Binary search works by repeatedly halving the search space. We compare the target to the middle element; if equal we return, if less we search the left half, otherwise the right half. Time complexity is O(log n), space O(1) iteratively. Edge cases: empty array returns -1, single element, target smaller than all elements, target larger than all elements.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.885,
+      "edge_case_coverage": 0.829,
+      "complexity_analysis": 0.932,
+      "tradeoff_reasoning": 0.932,
+      "communication_clarity": 0.908
+    }
+  },
+  {
+    "question": "What is SQL injection and how do you prevent it?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.68,
+      "edge_case_coverage": 0.404,
+      "complexity_analysis": 0.658,
+      "tradeoff_reasoning": 0.54,
+      "communication_clarity": 0.524
+    }
+  },
+  {
+    "question": "How does lock contention scale with the number of threads?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "concurrency",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.576,
+      "edge_case_coverage": 0.662,
+      "complexity_analysis": 0.631,
+      "tradeoff_reasoning": 0.497,
+      "communication_clarity": 0.735
+    }
+  },
+  {
+    "question": "Walk me through your class design for the parking lot system.",
+    "answer": "You can use a database for that.",
+    "domain": "object_oriented_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.103,
+      "edge_case_coverage": 0.295,
+      "complexity_analysis": 0.269,
+      "tradeoff_reasoning": 0.286,
+      "communication_clarity": 0.389
+    }
+  },
+  {
+    "question": "How does your system handle a node that rejoins after being offline for an hour?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.71,
+      "edge_case_coverage": 0.478,
+      "complexity_analysis": 0.635,
+      "tradeoff_reasoning": 0.494,
+      "communication_clarity": 0.515
+    }
+  },
+  {
+    "question": "What are the tradeoffs between synchronous and asynchronous processing in your design?",
+    "answer": "It depends on the situation.",
+    "domain": "system_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.298,
+      "edge_case_coverage": 0.375,
+      "complexity_analysis": 0.334,
+      "tradeoff_reasoning": 0.07,
+      "communication_clarity": 0.254
+    }
+  },
+  {
+    "question": "Explain the concept of thread safety in plain language with an example.",
+    "answer": "It's O(n) I think.",
+    "domain": "concurrency",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.172,
+      "edge_case_coverage": 0.09,
+      "complexity_analysis": 0.266,
+      "tradeoff_reasoning": 0.291,
+      "communication_clarity": 0.394
+    }
+  },
+  {
+    "question": "Describe how you would approach an unfamiliar algorithmic problem.",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "algorithms",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.58,
+      "edge_case_coverage": 0.519,
+      "complexity_analysis": 0.611,
+      "tradeoff_reasoning": 0.543,
+      "communication_clarity": 0.534
+    }
+  },
+  {
+    "question": "What edge cases exist when merging two sorted arrays?",
+    "answer": "I would use a loop to solve this.",
+    "domain": "algorithms",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.164,
+      "edge_case_coverage": 0.357,
+      "complexity_analysis": 0.202,
+      "tradeoff_reasoning": 0.352,
+      "communication_clarity": 0.235
+    }
+  },
+  {
+    "question": "What happens to your linked list reversal if the list is empty or has one node?",
+    "answer": "Merge sort divides the array in half recursively until single elements, then merges sorted halves. Time O(n log n) in all cases, space O(n) for the merge buffer. It's stable and predictable unlike quicksort. Tradeoff: uses more memory than in-place sorts.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.887,
+      "edge_case_coverage": 0.807,
+      "complexity_analysis": 0.897,
+      "tradeoff_reasoning": 0.879,
+      "communication_clarity": 0.863
+    }
+  },
+  {
+    "question": "What is a distributed transaction and how does two-phase commit work?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.551,
+      "edge_case_coverage": 0.462,
+      "complexity_analysis": 0.61,
+      "tradeoff_reasoning": 0.509,
+      "communication_clarity": 0.661
+    }
+  },
+  {
+    "question": "When would you use a heap instead of a sorted list?",
+    "answer": "Binary search works by repeatedly halving the search space. We compare the target to the middle element; if equal we return, if less we search the left half, otherwise the right half. Time complexity is O(log n), space O(1) iteratively. Edge cases: empty array returns -1, single element, target smaller than all elements, target larger than all elements.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.954,
+      "edge_case_coverage": 0.803,
+      "complexity_analysis": 0.859,
+      "tradeoff_reasoning": 0.824,
+      "communication_clarity": 0.879
+    }
+  },
+  {
+    "question": "Compare quicksort and mergesort \u2014 when would you choose each?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "algorithms",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.517,
+      "edge_case_coverage": 0.533,
+      "complexity_analysis": 0.683,
+      "tradeoff_reasoning": 0.475,
+      "communication_clarity": 0.608
+    }
+  },
+  {
+    "question": "Describe how you would respond to a reported security vulnerability.",
+    "answer": "I would use a loop to solve this.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.278,
+      "edge_case_coverage": 0.325,
+      "complexity_analysis": 0.291,
+      "tradeoff_reasoning": 0.215,
+      "communication_clarity": 0.28
+    }
+  },
+  {
+    "question": "How does deep inheritance affect method dispatch performance?",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "object_oriented_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.516,
+      "edge_case_coverage": 0.572,
+      "complexity_analysis": 0.504,
+      "tradeoff_reasoning": 0.451,
+      "communication_clarity": 0.567
+    }
+  },
+  {
+    "question": "Compare the time complexity of BFS vs DFS for a graph with V vertices and E edges.",
+    "answer": "Binary search works by repeatedly halving the search space. We compare the target to the middle element; if equal we return, if less we search the left half, otherwise the right half. Time complexity is O(log n), space O(1) iteratively. Edge cases: empty array returns -1, single element, target smaller than all elements, target larger than all elements.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.853,
+      "edge_case_coverage": 0.846,
+      "complexity_analysis": 0.936,
+      "tradeoff_reasoning": 0.851,
+      "communication_clarity": 0.92
+    }
+  },
+  {
+    "question": "Write a function to check if a binary tree is a valid BST.",
+    "answer": "It's O(n) I think.",
+    "domain": "algorithms",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.358,
+      "edge_case_coverage": 0.367,
+      "complexity_analysis": 0.323,
+      "tradeoff_reasoning": 0.201,
+      "communication_clarity": 0.364
+    }
+  },
+  {
+    "question": "Walk me through your class design for the parking lot system.",
+    "answer": "I would test it first.",
+    "domain": "object_oriented_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.132,
+      "edge_case_coverage": 0.073,
+      "complexity_analysis": 0.295,
+      "tradeoff_reasoning": 0.056,
+      "communication_clarity": 0.279
+    }
+  },
+  {
+    "question": "Walk me through how you would approach a new ML problem from scratch.",
+    "answer": "I think it works by checking each element.",
+    "domain": "machine_learning",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.293,
+      "edge_case_coverage": 0.081,
+      "complexity_analysis": 0.374,
+      "tradeoff_reasoning": 0.368,
+      "communication_clarity": 0.108
+    }
+  },
+  {
+    "question": "What is the overhead of maintaining a distributed transaction log?",
+    "answer": "I would use a loop to solve this.",
+    "domain": "distributed_systems",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.425,
+      "edge_case_coverage": 0.312,
+      "complexity_analysis": 0.182,
+      "tradeoff_reasoning": 0.158,
+      "communication_clarity": 0.439
+    }
+  },
+  {
+    "question": "What happens to your parking lot design when all spots are full?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.898,
+      "edge_case_coverage": 0.909,
+      "complexity_analysis": 0.925,
+      "tradeoff_reasoning": 0.804,
+      "communication_clarity": 0.84
+    }
+  },
+  {
+    "question": "What is the overhead of context switching and when does it become a bottleneck?",
+    "answer": "A mutex allows only one thread at a time. A semaphore allows N threads. Use mutex for mutual exclusion of a critical section; use semaphore for resource counting (e.g. connection pool of size 10). Lock-free structures use CAS operations to avoid blocking entirely \u2014 higher throughput under contention but harder to implement correctly.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.9,
+      "edge_case_coverage": 0.932,
+      "complexity_analysis": 0.814,
+      "tradeoff_reasoning": 0.946,
+      "communication_clarity": 0.896
+    }
+  },
+  {
+    "question": "Explain the concept of thread safety in plain language with an example.",
+    "answer": "A mutex allows only one thread at a time. A semaphore allows N threads. Use mutex for mutual exclusion of a critical section; use semaphore for resource counting (e.g. connection pool of size 10). Lock-free structures use CAS operations to avoid blocking entirely \u2014 higher throughput under contention but harder to implement correctly.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.853,
+      "edge_case_coverage": 0.944,
+      "complexity_analysis": 0.901,
+      "tradeoff_reasoning": 0.886,
+      "communication_clarity": 0.953
+    }
+  },
+  {
+    "question": "Explain what a transaction is and why it matters.",
+    "answer": "A B-tree index stores keys in sorted order in a balanced tree, enabling O(log n) lookups, range queries, and sorted scans. Write overhead: every insert/update/delete must update the index. Space overhead: roughly 10-30% of table size. Tradeoff: more indexes = faster reads, slower writes.",
+    "domain": "databases",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.926,
+      "edge_case_coverage": 0.849,
+      "complexity_analysis": 0.943,
+      "tradeoff_reasoning": 0.828,
+      "communication_clarity": 0.836
+    }
+  },
+  {
+    "question": "How does query complexity change as the number of rows grows from 1K to 1B?",
+    "answer": "You can use a database for that.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.145,
+      "edge_case_coverage": 0.395,
+      "complexity_analysis": 0.319,
+      "tradeoff_reasoning": 0.161,
+      "communication_clarity": 0.445
+    }
+  },
+  {
+    "question": "How does bcrypt work for password hashing?",
+    "answer": "I would test it first.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.418,
+      "edge_case_coverage": 0.295,
+      "complexity_analysis": 0.343,
+      "tradeoff_reasoning": 0.102,
+      "communication_clarity": 0.117
+    }
+  },
+  {
+    "question": "What edge cases exist when normalizing features with outliers?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "machine_learning",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.906,
+      "edge_case_coverage": 0.907,
+      "complexity_analysis": 0.802,
+      "tradeoff_reasoning": 0.911,
+      "communication_clarity": 0.931
+    }
+  },
+  {
+    "question": "What edge cases exist in your chat system when a user goes offline mid-message?",
+    "answer": "For a URL shortener I'd use a hash function (e.g. MD5 first 6 chars) to generate short codes, store mappings in a key-value store like Redis for fast reads, and a relational DB for persistence. Handle collisions by appending a counter. Scale reads with a CDN. Edge cases: same URL submitted twice (return existing code), expired URLs, malicious URLs.",
+    "domain": "system_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.94,
+      "edge_case_coverage": 0.878,
+      "complexity_analysis": 0.888,
+      "tradeoff_reasoning": 0.884,
+      "communication_clarity": 0.947
+    }
+  },
+  {
+    "question": "What are the tradeoffs between iterative and recursive tree traversal?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "algorithms",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.739,
+      "edge_case_coverage": 0.423,
+      "complexity_analysis": 0.49,
+      "tradeoff_reasoning": 0.537,
+      "communication_clarity": 0.548
+    }
+  },
+  {
+    "question": "What is the computational cost of bcrypt compared to MD5 for password hashing?",
+    "answer": "I think it works by checking each element.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.352,
+      "edge_case_coverage": 0.397,
+      "complexity_analysis": 0.159,
+      "tradeoff_reasoning": 0.356,
+      "communication_clarity": 0.139
+    }
+  },
+  {
+    "question": "How does the key size affect the security and performance of AES encryption?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.669,
+      "edge_case_coverage": 0.456,
+      "complexity_analysis": 0.506,
+      "tradeoff_reasoning": 0.493,
+      "communication_clarity": 0.648
+    }
+  },
+  {
+    "question": "How does your classifier behave on a highly imbalanced dataset?",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "machine_learning",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.931,
+      "edge_case_coverage": 0.809,
+      "complexity_analysis": 0.91,
+      "tradeoff_reasoning": 0.948,
+      "communication_clarity": 0.908
+    }
+  },
+  {
+    "question": "Compare using a relational database vs a document store for user profiles.",
+    "answer": "I think it works by checking each element.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.229,
+      "edge_case_coverage": 0.312,
+      "complexity_analysis": 0.133,
+      "tradeoff_reasoning": 0.338,
+      "communication_clarity": 0.365
+    }
+  },
+  {
+    "question": "Explain overfitting to a non-technical stakeholder.",
+    "answer": "I would use a loop to solve this.",
+    "domain": "machine_learning",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.29,
+      "edge_case_coverage": 0.106,
+      "complexity_analysis": 0.179,
+      "tradeoff_reasoning": 0.372,
+      "communication_clarity": 0.15
+    }
+  },
+  {
+    "question": "Your binary search implementation works for most inputs \u2014 what inputs could break it?",
+    "answer": "I think it works by checking each element.",
+    "domain": "algorithms",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.374,
+      "edge_case_coverage": 0.1,
+      "complexity_analysis": 0.201,
+      "tradeoff_reasoning": 0.302,
+      "communication_clarity": 0.327
+    }
+  },
+  {
+    "question": "Analyze the message complexity of the Paxos consensus algorithm.",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.551,
+      "edge_case_coverage": 0.528,
+      "complexity_analysis": 0.494,
+      "tradeoff_reasoning": 0.563,
+      "communication_clarity": 0.559
+    }
+  },
+  {
+    "question": "What edge cases exist in your library system when a book is already checked out?",
+    "answer": "It's O(n) I think.",
+    "domain": "object_oriented_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.251,
+      "edge_case_coverage": 0.311,
+      "complexity_analysis": 0.21,
+      "tradeoff_reasoning": 0.335,
+      "communication_clarity": 0.397
+    }
+  },
+  {
+    "question": "Explain the difference between optimistic and pessimistic locking.",
+    "answer": "Just use a hash map.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.357,
+      "edge_case_coverage": 0.325,
+      "complexity_analysis": 0.204,
+      "tradeoff_reasoning": 0.278,
+      "communication_clarity": 0.428
+    }
+  },
+  {
+    "question": "Explain SQL injection to a non-technical product manager.",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.632,
+      "edge_case_coverage": 0.579,
+      "complexity_analysis": 0.717,
+      "tradeoff_reasoning": 0.581,
+      "communication_clarity": 0.601
+    }
+  },
+  {
+    "question": "When would you use a CDN and what are the downsides?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "system_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.627,
+      "edge_case_coverage": 0.505,
+      "complexity_analysis": 0.697,
+      "tradeoff_reasoning": 0.592,
+      "communication_clarity": 0.734
+    }
+  },
+  {
+    "question": "Explain database normalization to a junior developer using a concrete example.",
+    "answer": "Just use a hash map.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.416,
+      "edge_case_coverage": 0.052,
+      "complexity_analysis": 0.308,
+      "tradeoff_reasoning": 0.097,
+      "communication_clarity": 0.383
+    }
+  },
+  {
+    "question": "Implement the Observer design pattern in your language of choice.",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.969,
+      "edge_case_coverage": 0.813,
+      "complexity_analysis": 0.886,
+      "tradeoff_reasoning": 0.813,
+      "communication_clarity": 0.919
+    }
+  },
+  {
+    "question": "How does network latency affect the performance of your consensus protocol?",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.715,
+      "edge_case_coverage": 0.538,
+      "complexity_analysis": 0.485,
+      "tradeoff_reasoning": 0.53,
+      "communication_clarity": 0.75
+    }
+  },
+  {
+    "question": "Describe the data flow in your design from user request to response.",
+    "answer": "I think it works by checking each element.",
+    "domain": "system_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.219,
+      "edge_case_coverage": 0.274,
+      "complexity_analysis": 0.196,
+      "tradeoff_reasoning": 0.117,
+      "communication_clarity": 0.205
+    }
+  },
+  {
+    "question": "Describe how you would design a system to avoid deadlocks from the start.",
+    "answer": "A race condition occurs when two threads access shared state concurrently and the outcome depends on scheduling. Example: two threads both read balance=100, both add 50, both write 150 \u2014 final balance should be 200. Fix with a mutex. Deadlock requires: mutual exclusion, hold-and-wait, no preemption, circular wait. Break any one condition to prevent it.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.926,
+      "edge_case_coverage": 0.801,
+      "complexity_analysis": 0.925,
+      "tradeoff_reasoning": 0.802,
+      "communication_clarity": 0.828
+    }
+  },
+  {
+    "question": "What happens when an object is in an invalid state in your design?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.916,
+      "edge_case_coverage": 0.832,
+      "complexity_analysis": 0.826,
+      "tradeoff_reasoning": 0.814,
+      "communication_clarity": 0.887
+    }
+  },
+  {
+    "question": "Walk me through how you would conduct a security review of a new feature.",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.71,
+      "edge_case_coverage": 0.683,
+      "complexity_analysis": 0.452,
+      "tradeoff_reasoning": 0.47,
+      "communication_clarity": 0.72
+    }
+  },
+  {
+    "question": "Implement the Observer design pattern in your language of choice.",
+    "answer": "I think it works by checking each element.",
+    "domain": "object_oriented_design",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.13,
+      "edge_case_coverage": 0.118,
+      "complexity_analysis": 0.26,
+      "tradeoff_reasoning": 0.222,
+      "communication_clarity": 0.306
+    }
+  },
+  {
+    "question": "What is the amortized time complexity of inserting into a dynamic array?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "algorithms",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.645,
+      "edge_case_coverage": 0.601,
+      "complexity_analysis": 0.51,
+      "tradeoff_reasoning": 0.482,
+      "communication_clarity": 0.527
+    }
+  },
+  {
+    "question": "What are the tradeoffs between synchronous and asynchronous processing in your design?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "system_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.518,
+      "edge_case_coverage": 0.537,
+      "complexity_analysis": 0.602,
+      "tradeoff_reasoning": 0.542,
+      "communication_clarity": 0.704
+    }
+  },
+  {
+    "question": "When would you use a heap instead of a sorted list?",
+    "answer": "Binary search works by repeatedly halving the search space. We compare the target to the middle element; if equal we return, if less we search the left half, otherwise the right half. Time complexity is O(log n), space O(1) iteratively. Edge cases: empty array returns -1, single element, target smaller than all elements, target larger than all elements.",
+    "domain": "algorithms",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.943,
+      "edge_case_coverage": 0.939,
+      "complexity_analysis": 0.857,
+      "tradeoff_reasoning": 0.845,
+      "communication_clarity": 0.837
+    }
+  },
+  {
+    "question": "What is the difference between authentication and authorization?",
+    "answer": "You can use a database for that.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.264,
+      "edge_case_coverage": 0.107,
+      "complexity_analysis": 0.291,
+      "tradeoff_reasoning": 0.146,
+      "communication_clarity": 0.101
+    }
+  },
+  {
+    "question": "When would you use a read replica and what consistency tradeoffs does it introduce?",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "databases",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.686,
+      "edge_case_coverage": 0.502,
+      "complexity_analysis": 0.658,
+      "tradeoff_reasoning": 0.403,
+      "communication_clarity": 0.504
+    }
+  },
+  {
+    "question": "When would you use a gossip protocol instead of a centralized registry?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.731,
+      "edge_case_coverage": 0.434,
+      "complexity_analysis": 0.511,
+      "tradeoff_reasoning": 0.674,
+      "communication_clarity": 0.551
+    }
+  },
+  {
+    "question": "Compare symmetric vs asymmetric encryption \u2014 when would you use each?",
+    "answer": "I think it works by checking each element.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.102,
+      "edge_case_coverage": 0.269,
+      "complexity_analysis": 0.344,
+      "tradeoff_reasoning": 0.325,
+      "communication_clarity": 0.364
+    }
+  },
+  {
+    "question": "What happens to your distributed system during a network partition?",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.585,
+      "edge_case_coverage": 0.643,
+      "complexity_analysis": 0.692,
+      "tradeoff_reasoning": 0.647,
+      "communication_clarity": 0.683
+    }
+  },
+  {
+    "question": "Compare a centralized coordinator vs a peer-to-peer approach for distributed transactions.",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.742,
+      "edge_case_coverage": 0.63,
+      "complexity_analysis": 0.464,
+      "tradeoff_reasoning": 0.526,
+      "communication_clarity": 0.508
+    }
+  },
+  {
+    "question": "When would you choose eventual consistency over strong consistency?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "distributed_systems",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.561,
+      "edge_case_coverage": 0.505,
+      "complexity_analysis": 0.641,
+      "tradeoff_reasoning": 0.421,
+      "communication_clarity": 0.544
+    }
+  },
+  {
+    "question": "How does consistent hashing work in a distributed system?",
+    "answer": "An index speeds up queries by creating a separate data structure. It makes reads faster but writes slower.",
+    "domain": "system_design",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.573,
+      "edge_case_coverage": 0.694,
+      "complexity_analysis": 0.642,
+      "tradeoff_reasoning": 0.534,
+      "communication_clarity": 0.617
+    }
+  },
+  {
+    "question": "Why did you choose SQL over NoSQL for this design? What do you give up?",
+    "answer": "Rate limiting can be implemented with a token bucket algorithm. Each user gets a bucket of N tokens refilled at rate R. Each request consumes one token. Store buckets in Redis with TTL. Tradeoffs: token bucket allows bursts vs leaky bucket which smooths traffic. Distributed rate limiting needs atomic Redis operations to avoid race conditions.",
+    "domain": "system_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.913,
+      "edge_case_coverage": 0.946,
+      "complexity_analysis": 0.843,
+      "tradeoff_reasoning": 0.806,
+      "communication_clarity": 0.872
+    }
+  },
+  {
+    "question": "Explain the difference between parallelism and concurrency.",
+    "answer": "A mutex allows only one thread at a time. A semaphore allows N threads. Use mutex for mutual exclusion of a critical section; use semaphore for resource counting (e.g. connection pool of size 10). Lock-free structures use CAS operations to avoid blocking entirely \u2014 higher throughput under contention but harder to implement correctly.",
+    "domain": "concurrency",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.908,
+      "edge_case_coverage": 0.87,
+      "complexity_analysis": 0.849,
+      "tradeoff_reasoning": 0.855,
+      "communication_clarity": 0.894
+    }
+  },
+  {
+    "question": "How does bcrypt work for password hashing?",
+    "answer": "You can use a database for that.",
+    "domain": "security",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.279,
+      "edge_case_coverage": 0.347,
+      "complexity_analysis": 0.219,
+      "tradeoff_reasoning": 0.359,
+      "communication_clarity": 0.354
+    }
+  },
+  {
+    "question": "What edge cases exist when merging two sorted arrays?",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "algorithms",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.665,
+      "edge_case_coverage": 0.662,
+      "complexity_analysis": 0.628,
+      "tradeoff_reasoning": 0.629,
+      "communication_clarity": 0.688
+    }
+  },
+  {
+    "question": "Explain what a transaction is and why it matters.",
+    "answer": "For a URL shortener you'd need a database to store the mappings and some way to generate short codes.",
+    "domain": "databases",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.548,
+      "edge_case_coverage": 0.508,
+      "complexity_analysis": 0.711,
+      "tradeoff_reasoning": 0.421,
+      "communication_clarity": 0.691
+    }
+  },
+  {
+    "question": "Explain the difference between optimistic and pessimistic locking.",
+    "answer": "I think it works by checking each element.",
+    "domain": "databases",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.34,
+      "edge_case_coverage": 0.289,
+      "complexity_analysis": 0.168,
+      "tradeoff_reasoning": 0.264,
+      "communication_clarity": 0.101
+    }
+  },
+  {
+    "question": "Explain what a man-in-the-middle attack is in plain language.",
+    "answer": "Binary search divides the array in half each time, so it's O(log n). You need the array to be sorted first.",
+    "domain": "security",
+    "quality": "medium",
+    "ground_truth_scores": {
+      "correctness": 0.73,
+      "edge_case_coverage": 0.68,
+      "complexity_analysis": 0.589,
+      "tradeoff_reasoning": 0.508,
+      "communication_clarity": 0.509
+    }
+  },
+  {
+    "question": "What is a race condition? Give a concrete example in code.",
+    "answer": "You can use a database for that.",
+    "domain": "concurrency",
+    "quality": "low",
+    "ground_truth_scores": {
+      "correctness": 0.304,
+      "edge_case_coverage": 0.125,
+      "complexity_analysis": 0.144,
+      "tradeoff_reasoning": 0.282,
+      "communication_clarity": 0.385
+    }
+  },
+  {
+    "question": "Design a parking lot system using object-oriented principles.",
+    "answer": "INNER JOIN only returns rows that match in both tables. LEFT JOIN keeps all rows from the left table.",
+    "domain": "object_oriented_design",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.865,
+      "edge_case_coverage": 0.864,
+      "complexity_analysis": 0.843,
+      "tradeoff_reasoning": 0.935,
+      "communication_clarity": 0.884
+    }
+  },
+  {
+    "question": "What is the overhead of TLS handshake on API latency?",
+    "answer": "A race condition is when two threads access the same variable at the same time. You fix it with locks.",
+    "domain": "security",
+    "quality": "high",
+    "ground_truth_scores": {
+      "correctness": 0.96,
+      "edge_case_coverage": 0.821,
+      "complexity_analysis": 0.898,
+      "tradeoff_reasoning": 0.912,
+      "communication_clarity": 0.825
+    }
+  }
+]

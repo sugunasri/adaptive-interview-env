@@ -1,0 +1,298 @@
+{
+  "algorithms": {
+    "correctness": [
+      "Implement binary search on a sorted array. What is its time complexity?",
+      "Write a function to reverse a linked list in-place.",
+      "Implement merge sort and explain how it works.",
+      "Given an array of integers, find two numbers that sum to a target value.",
+      "Write a function to check if a binary tree is a valid BST."
+    ],
+    "edge_case_coverage": [
+      "What edge cases must you handle when implementing a stack using an array?",
+      "Your binary search implementation works for most inputs — what inputs could break it?",
+      "What happens to your linked list reversal if the list is empty or has one node?",
+      "What edge cases exist when merging two sorted arrays?",
+      "Describe all edge cases for a function that finds the maximum subarray sum."
+    ],
+    "complexity_analysis": [
+      "What is the time and space complexity of your quicksort implementation?",
+      "Compare the time complexity of BFS vs DFS for a graph with V vertices and E edges.",
+      "What is the amortized time complexity of inserting into a dynamic array?",
+      "Explain the time complexity difference between a hash map and a BST for lookups.",
+      "What is the space complexity of a recursive Fibonacci implementation?"
+    ],
+    "tradeoff_reasoning": [
+      "When would you choose a hash map over a sorted array for lookups?",
+      "Compare DFS and BFS — when is each preferable?",
+      "What are the tradeoffs between iterative and recursive tree traversal?",
+      "When would you use a heap instead of a sorted list?",
+      "Compare quicksort and mergesort — when would you choose each?"
+    ],
+    "communication_clarity": [
+      "Explain how a hash table works to someone who has never programmed before.",
+      "Walk me through your thought process for solving the two-sum problem step by step.",
+      "Explain the concept of dynamic programming using a simple example.",
+      "Describe how you would approach an unfamiliar algorithmic problem.",
+      "Explain recursion and base cases in plain language."
+    ]
+  },
+  "system_design": {
+    "correctness": [
+      "Design a key-value store that supports get, put, and delete operations.",
+      "How would you implement a distributed cache like Memcached?",
+      "Design the data model for a social network's friend graph.",
+      "How does consistent hashing work in a distributed system?",
+      "Design a message queue system that guarantees at-least-once delivery."
+    ],
+    "edge_case_coverage": [
+      "What happens to your URL shortener when the same URL is submitted twice?",
+      "How does your rate limiter handle clock skew across distributed nodes?",
+      "What edge cases exist in your chat system when a user goes offline mid-message?",
+      "How does your design handle a sudden 10x traffic spike?",
+      "What happens to your distributed database during a network partition?"
+    ],
+    "complexity_analysis": [
+      "What is the read and write throughput of your proposed database design?",
+      "How does your system scale from 1,000 to 1,000,000 users?",
+      "What is the latency impact of adding a caching layer to your design?",
+      "Analyze the storage requirements of your news feed design.",
+      "How does the number of shards affect query latency in your design?"
+    ],
+    "tradeoff_reasoning": [
+      "Why did you choose SQL over NoSQL for this design? What do you give up?",
+      "What are the tradeoffs between strong consistency and eventual consistency here?",
+      "When would you use a CDN and what are the downsides?",
+      "Compare push vs pull models for a notification system.",
+      "What are the tradeoffs between synchronous and asynchronous processing in your design?"
+    ],
+    "communication_clarity": [
+      "Walk me through your design for a URL shortener from start to finish.",
+      "Explain your system design to a non-technical product manager.",
+      "Describe the data flow in your design from user request to response.",
+      "How would you explain eventual consistency to a junior engineer?",
+      "Summarize the key architectural decisions in your design and why you made them."
+    ]
+  },
+  "databases": {
+    "correctness": [
+      "Write a SQL query to find the second highest salary in an employees table.",
+      "What is the difference between INNER JOIN and LEFT JOIN? Give an example.",
+      "Explain ACID properties and why they matter.",
+      "Write a query to find all customers who have placed more than 3 orders.",
+      "What is a database index and how does it speed up queries?"
+    ],
+    "edge_case_coverage": [
+      "What happens to your JOIN query when one table has NULL values in the join column?",
+      "How does your transaction handle a deadlock between two concurrent writes?",
+      "What edge cases exist when paginating large result sets?",
+      "What happens to your index when you insert a duplicate key?",
+      "How does your query behave when the table is empty?"
+    ],
+    "complexity_analysis": [
+      "What is the time complexity of a full table scan vs an index lookup?",
+      "How does adding an index affect write performance?",
+      "Analyze the query plan for a JOIN across two large tables.",
+      "What is the space overhead of maintaining a B-tree index?",
+      "How does query complexity change as the number of rows grows from 1K to 1B?"
+    ],
+    "tradeoff_reasoning": [
+      "When would you denormalize a database schema and what do you trade off?",
+      "Compare using a relational database vs a document store for user profiles.",
+      "When would you use a read replica and what consistency tradeoffs does it introduce?",
+      "What are the tradeoffs between using stored procedures vs application-level logic?",
+      "When would you choose a columnar database over a row-oriented one?"
+    ],
+    "communication_clarity": [
+      "Explain database normalization to a junior developer using a concrete example.",
+      "Walk me through how a B-tree index works in plain language.",
+      "Explain the difference between optimistic and pessimistic locking.",
+      "Describe how you would debug a slow SQL query step by step.",
+      "Explain what a transaction is and why it matters."
+    ]
+  },
+  "concurrency": {
+    "correctness": [
+      "What is a race condition? Give a concrete example in code.",
+      "Implement a thread-safe singleton in your language of choice.",
+      "What is a deadlock and what are the four conditions required for it?",
+      "Explain the difference between a mutex and a semaphore.",
+      "What is the happens-before relationship in Java's memory model?"
+    ],
+    "edge_case_coverage": [
+      "What happens if a thread holding a lock crashes before releasing it?",
+      "How does your producer-consumer implementation handle an empty queue?",
+      "What edge cases exist in your thread pool implementation?",
+      "What happens when two threads both try to acquire the same two locks in opposite order?",
+      "How does your concurrent hash map handle a resize operation?"
+    ],
+    "complexity_analysis": [
+      "What is the throughput impact of using a global lock vs fine-grained locking?",
+      "How does the number of threads affect performance in a CPU-bound vs I/O-bound task?",
+      "What is the overhead of context switching and when does it become a bottleneck?",
+      "Analyze the latency of your lock-free queue implementation.",
+      "How does lock contention scale with the number of threads?"
+    ],
+    "tradeoff_reasoning": [
+      "When would you use a lock-free data structure instead of a mutex-protected one?",
+      "Compare thread-based concurrency vs event-loop concurrency (e.g. Node.js).",
+      "When would you use optimistic concurrency control over pessimistic locking?",
+      "What are the tradeoffs between using a thread pool vs spawning threads on demand?",
+      "Compare using message passing vs shared memory for inter-thread communication."
+    ],
+    "communication_clarity": [
+      "Explain what a race condition is to someone who has never written concurrent code.",
+      "Walk me through how you would debug a deadlock in a production system.",
+      "Explain the concept of thread safety in plain language with an example.",
+      "Describe how you would design a system to avoid deadlocks from the start.",
+      "Explain the difference between parallelism and concurrency."
+    ]
+  },
+  "machine_learning": {
+    "correctness": [
+      "What is the difference between supervised and unsupervised learning?",
+      "Explain how gradient descent works.",
+      "What is the bias-variance tradeoff?",
+      "How does a decision tree make predictions?",
+      "What is cross-validation and why is it used?"
+    ],
+    "edge_case_coverage": [
+      "What happens to your model when the test distribution differs from training?",
+      "How does your model handle missing values in input features?",
+      "What edge cases exist when normalizing features with outliers?",
+      "What happens to gradient descent when the learning rate is too high or too low?",
+      "How does your classifier behave on a highly imbalanced dataset?"
+    ],
+    "complexity_analysis": [
+      "What is the time complexity of training a k-nearest neighbors model?",
+      "How does model complexity affect training time and inference latency?",
+      "What is the space complexity of storing a trained random forest?",
+      "How does the number of features affect the curse of dimensionality?",
+      "Analyze the computational cost of backpropagation in a deep neural network."
+    ],
+    "tradeoff_reasoning": [
+      "When would you choose a simple linear model over a deep neural network?",
+      "What are the tradeoffs between precision and recall in a classification task?",
+      "Compare batch gradient descent vs stochastic gradient descent.",
+      "When would you use regularization and what type would you choose?",
+      "What are the tradeoffs between model interpretability and accuracy?"
+    ],
+    "communication_clarity": [
+      "Explain overfitting to a non-technical stakeholder.",
+      "Walk me through how you would approach a new ML problem from scratch.",
+      "Explain what a confusion matrix tells you about a classifier.",
+      "Describe the steps in a typical ML pipeline.",
+      "Explain the intuition behind support vector machines."
+    ]
+  },
+  "distributed_systems": {
+    "correctness": [
+      "What is the CAP theorem and what does it mean in practice?",
+      "Explain how the Raft consensus algorithm achieves leader election.",
+      "What is a distributed transaction and how does two-phase commit work?",
+      "How does vector clocks help track causality in distributed systems?",
+      "What is the difference between at-most-once, at-least-once, and exactly-once delivery?"
+    ],
+    "edge_case_coverage": [
+      "What happens to your distributed system during a network partition?",
+      "How does your system handle a node that rejoins after being offline for an hour?",
+      "What edge cases exist in your leader election algorithm?",
+      "How does your system handle duplicate messages in an at-least-once delivery model?",
+      "What happens when a two-phase commit coordinator crashes mid-transaction?"
+    ],
+    "complexity_analysis": [
+      "What is the latency impact of requiring quorum reads in your system?",
+      "How does the number of replicas affect write throughput?",
+      "Analyze the message complexity of the Paxos consensus algorithm.",
+      "What is the overhead of maintaining a distributed transaction log?",
+      "How does network latency affect the performance of your consensus protocol?"
+    ],
+    "tradeoff_reasoning": [
+      "When would you choose eventual consistency over strong consistency?",
+      "What are the tradeoffs between synchronous and asynchronous replication?",
+      "Compare a centralized coordinator vs a peer-to-peer approach for distributed transactions.",
+      "When would you use a gossip protocol instead of a centralized registry?",
+      "What are the tradeoffs between sharding by range vs by hash?"
+    ],
+    "communication_clarity": [
+      "Explain the CAP theorem to a junior engineer using a real-world analogy.",
+      "Walk me through what happens when a node fails in your distributed system.",
+      "Explain eventual consistency using a concrete example.",
+      "Describe how you would debug a split-brain scenario.",
+      "Explain the difference between horizontal and vertical scaling."
+    ]
+  },
+  "security": {
+    "correctness": [
+      "What is SQL injection and how do you prevent it?",
+      "Explain how HTTPS works at a high level.",
+      "What is the difference between authentication and authorization?",
+      "How does bcrypt work for password hashing?",
+      "What is a CSRF attack and how do you defend against it?"
+    ],
+    "edge_case_coverage": [
+      "What happens if your JWT secret key is compromised?",
+      "How does your authentication system handle a brute-force attack?",
+      "What edge cases exist in your input validation logic?",
+      "What happens when a session token is stolen via XSS?",
+      "How does your system handle a replay attack on an API endpoint?"
+    ],
+    "complexity_analysis": [
+      "What is the computational cost of bcrypt compared to MD5 for password hashing?",
+      "How does the key size affect the security and performance of AES encryption?",
+      "What is the overhead of TLS handshake on API latency?",
+      "How does the number of PBKDF2 iterations affect both security and performance?",
+      "Analyze the time complexity of a timing attack on a naive string comparison."
+    ],
+    "tradeoff_reasoning": [
+      "When would you use OAuth2 vs API keys for authentication?",
+      "What are the tradeoffs between storing sessions server-side vs using JWTs?",
+      "Compare symmetric vs asymmetric encryption — when would you use each?",
+      "What are the security tradeoffs of allowing third-party login (SSO)?",
+      "When would you choose rate limiting over CAPTCHA for bot prevention?"
+    ],
+    "communication_clarity": [
+      "Explain SQL injection to a non-technical product manager.",
+      "Walk me through how you would conduct a security review of a new feature.",
+      "Explain the principle of least privilege using a concrete example.",
+      "Describe how you would respond to a reported security vulnerability.",
+      "Explain what a man-in-the-middle attack is in plain language."
+    ]
+  },
+  "object_oriented_design": {
+    "correctness": [
+      "Design a parking lot system using object-oriented principles.",
+      "Implement the Observer design pattern in your language of choice.",
+      "What is the difference between composition and inheritance? Give an example.",
+      "Design a library management system with classes for books, members, and loans.",
+      "Implement a simple event bus using the publish-subscribe pattern."
+    ],
+    "edge_case_coverage": [
+      "What happens to your parking lot design when all spots are full?",
+      "How does your Observer pattern handle a subscriber that throws an exception?",
+      "What edge cases exist in your library system when a book is already checked out?",
+      "How does your design handle circular dependencies between classes?",
+      "What happens when an object is in an invalid state in your design?"
+    ],
+    "complexity_analysis": [
+      "What is the time complexity of looking up an available parking spot in your design?",
+      "How does the number of observers affect the performance of your event system?",
+      "What is the memory overhead of your class hierarchy?",
+      "How does deep inheritance affect method dispatch performance?",
+      "Analyze the complexity of your object graph traversal."
+    ],
+    "tradeoff_reasoning": [
+      "When would you use composition over inheritance in your design?",
+      "What are the tradeoffs between using an abstract class vs an interface?",
+      "When would you apply the Singleton pattern and what are its downsides?",
+      "Compare the Strategy pattern vs subclassing for varying behavior.",
+      "What are the tradeoffs between a fat interface and the Interface Segregation Principle?"
+    ],
+    "communication_clarity": [
+      "Explain the SOLID principles using a concrete example from your design.",
+      "Walk me through your class design for the parking lot system.",
+      "Explain the difference between a design pattern and an architectural pattern.",
+      "Describe how you would refactor a God class into smaller, focused classes.",
+      "Explain dependency injection to a junior developer."
+    ]
+  }
+}

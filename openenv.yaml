@@ -1,0 +1,26 @@
+# OpenEnv manifest
+# TODO (Teammate 1): confirm exact schema required by openenv package
+id: AdaptiveInterviewEnv-v0
+version: "0.2.0"
+entry_point: "adaptive_interview_env.env:AdaptiveInterviewEnv"
+description: >
+  Adaptive CS technical interview environment where a Scorer LLM is trained
+  via RL to produce calibrated skill-dimension scores. Follow-up questions
+  are generated dynamically by a fixed or trainable LLM targeting the student's
+  weakest skill dimensions. V2 adds multi-agent question generation, difficulty
+  progression, cross-domain skill tracking, session persistence, ensemble scoring,
+  and benchmark mode.
+domains:
+  - algorithms
+  - system_design
+  - databases
+  - concurrency
+  - machine_learning
+  - distributed_systems
+  - security
+  - object_oriented_design
+tags:
+  - self-improvement
+  - multi-agent
+  - technical-interview
+  - scorer-training

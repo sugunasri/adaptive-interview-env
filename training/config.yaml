@@ -1,0 +1,43 @@
+scorer_model: "Qwen/Qwen2.5-1.5B-Instruct"
+student_model: "Qwen/Qwen2.5-1.5B-Instruct"
+learning_rate: 1.0e-5
+batch_size: 4
+num_episodes: 500
+ema_decay: 0.8
+output_dir: "outputs/"
+logger: "wandb"  # "wandb" | "csv"
+
+reward_weights:
+  calibration: 0.5
+  improvement: 0.3
+  consistency: 0.2
+
+ppo:
+  mini_batch_size: 2
+  ppo_epochs: 4
+  clip_range: 0.2
+
+env:
+  max_steps: 20
+  domain: null  # null = random per episode
+
+# V2 config fields
+difficulty_thresholds:
+  medium: 0.6
+  hard: 0.8
+
+student_pool:
+  - model: "Qwen/Qwen2.5-1.5B-Instruct"
+    ability_level: "weak"
+  - model: "Qwen/Qwen2.5-1.5B-Instruct"
+    ability_level: "average"
+  - model: "Qwen/Qwen2.5-1.5B-Instruct"
+    ability_level: "strong"
+
+student_pool_strategy: "random"  # "random" | "round_robin" | "curriculum"
+
+session_store_path: "outputs/sessions.json"
+
+ensemble_checkpoints: []  # list of checkpoint paths for EnsembleScorer
+
+question_generator_model: ""  # set to enable TrainableQuestionGenerator

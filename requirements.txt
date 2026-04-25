@@ -1,0 +1,10 @@
+numpy>=1.24
+transformers>=4.40
+torch>=2.1
+gradio>=5.0,<6.0
+huggingface_hub>=0.25,<1.0
+plotly>=5.0
+pyyaml>=6.0
+scipy>=1.10
+# audioop was removed from Python 3.13 stdlib; pydub (via gradio) still imports it
+audioop-lts; python_version >= "3.13"
